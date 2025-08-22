@@ -1,0 +1,17 @@
+[package]
+name = "colorcet"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85.1"
+authors = ["Wim Pomp <w.pomp@nki.nl>"]
+license = "BB-CY"
+description = "Colorcet colormaps."
+homepage = "https://github.com/wimpomp/colorcet"
+repository = "https://github.com/wimpomp/colorcet"
+readme = "README.md"
+keywords = ["color", "colormap", "color-scales", "visualization", "gradient"]
+categories = ["graphics", "visualization"]
+
+[dependencies]
+phf = { version = "0.12.1", features = ["macros"] }
+thiserror = "2.0.16"
