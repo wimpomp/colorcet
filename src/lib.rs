@@ -25,7 +25,14 @@ pub enum ColorcetError {
 /// use colorcet::ColorMap;
 /// use colorgrad::{LinearGradient, Color};
 ///
+/// // get colormap by name, add _r to reverse the colormap
 /// let colormap: ColorMap = "glasbey".parse().unwrap();
+/// let colormap: ColorMap = "glasbey_r".parse().unwrap();
+/// let colormap: ColorMap = "red".parse().unwrap();  // black to red gradient
+/// let colormap: ColorMap = "r".parse().unwrap();  // black to red gradient
+/// let colormap: ColorMap = "r_r".parse().unwrap();  // red to black gradient
+/// let colormap: ColorMap = "#5e6f7a".parse().unwrap();
+/// let colormap: ColorMap = "#5e6f7a_r".parse().unwrap();
 /// let vec_color: Vec<Color> = colormap.clone().try_into().unwrap();
 /// let vec_css: Vec<String> = colormap.clone().try_into().unwrap();
 /// let linear_gradient: LinearGradient = colormap.clone().try_into().unwrap();
@@ -105,7 +112,19 @@ impl FromStr for ColorMap {
             }
             Ok(ColorMap(cmap))
         } else if let Ok(cmap) = GradientBuilder::new()
-            .html_colors(&["#000000", name0])
+            .html_colors(&["#000000", {
+                match name0 {
+                    "r" => "#ff0000",
+                    "g" => "#008000",
+                    "b" => "#0000ff",
+                    "c" => "#00bfbf",
+                    "m" => "#bf00bf",
+                    "y" => "#bfbf00",
+                    "k" => "#000000",
+                    "w" => "#ffffff",
+                    _ => name0,
+                }
+            }])
             .build::<LinearGradient>()
         {
             let mut cmap: Vec<_> = cmap
